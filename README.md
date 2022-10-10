@@ -54,8 +54,10 @@ useDispatch
 useSelector
 BrowserRouter
 styled-components
-
+react-redux
 ```
+
+
 전역 스테이트관리 라이브러리인 redux를 사용해본 투두리스트입니다.  
 useSelector를 통해 스테이트값을 불러오며,  
 스테이트 변동사항은 useDispatch를 통해서 리듀서를 이용해 스테이트값을 변경하였습니다.  
