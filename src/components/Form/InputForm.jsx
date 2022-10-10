@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ADDLIST } from "../../redux/modules/todos";
 
 const FormBox1 = styled.div`
   text-align: center;
@@ -26,6 +29,7 @@ const FormBox2 = styled.div`
   opacity: 0;
   transition: all 0.6s;
   display: none;
+  height: 80px;
 `;
 const InputBox = styled.div`
   padding: 20px;
@@ -68,6 +72,39 @@ const InputForm = () => {
     }, 600);
   }
 
+  const form = {
+    id: 0,
+    title: "",
+    desc: "",
+    inDone: false,
+  };
+  const listStore = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const [todo, settodo] = useState(form);
+
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target;
+    settodo({ ...todo, [name]: value });
+  };
+
+  const Submit = (event) => {
+    const val1 = document.getElementById("title");
+    const val2 = document.getElementById("desc");
+    if (todo.title.trim() === "" || todo.desc.trim() === "") return;
+    dispatch(
+      ADDLIST({
+        id: Date.now() + "",
+        title: todo.title,
+        desc: todo.desc,
+        isDone: false,
+      })
+    );
+    val1.value = null;
+    val2.value = null;
+    settodo(form);
+  };
+
   return (
     <>
       <FormBox1 id="form1">
@@ -77,10 +114,15 @@ const InputForm = () => {
       <FormBox2 id="form2">
         <InputBox>
           <label htmlFor="title"> 제목 :</label>
-          <input type="text" id="title" />
+          <input
+            type="text"
+            id="title"
+            name="title"
+            onChange={onChangeHandler}
+          />
           <label htmlFor="desc"> 내용 :</label>
-          <input type="text" id="desc" />
-          <button>추가하기</button>
+          <input type="text" id="desc" name="desc" onChange={onChangeHandler} />
+          <button onClick={Submit}>추가하기</button>
           <span onClick={close}>🔺</span>
         </InputBox>
       </FormBox2>

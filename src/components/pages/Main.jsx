@@ -2,6 +2,8 @@ import React from "react";
 import InputForm from "../Form/InputForm";
 import styled from "styled-components";
 import List from "../List/List";
+import GlobalStyled from "../GlobalStyled/GlobalStyled";
+import { useParams } from "react-router-dom";
 
 const Wrap = styled.div`
   width: 95%;
@@ -15,9 +17,12 @@ const Title = styled.h1`
   padding: 15px;
 `;
 
-const TodoList = () => {
+const Main = () => {
+  const params = useParams();
+  console.log(params);
   return (
     <Wrap>
+      <GlobalStyled></GlobalStyled>
       <Title>My Todo List</Title>
       <InputForm></InputForm>
       <List></List>
@@ -25,4 +30,4 @@ const TodoList = () => {
   );
 };
 
-export default TodoList;
+export default Main;
